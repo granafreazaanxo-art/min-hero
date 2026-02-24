@@ -2,9 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Min Hero: Tower of Sages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min Hero: Tower of Sages - Pantalla Completa</title>
     <style>
-        /* Estilo para que el juego ocupe toda la pantalla disponible */
+        /* Eliminamos margenes y obligamos al fondo a ser negro */
         body, html {
             margin: 0;
             padding: 0;
@@ -14,16 +15,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Elimina las barras de scroll */
+            overflow: hidden;
         }
-        #game {
-            width: 100vw; /* 100% del ancho de la ventana */
-            height: 100vh; /* 100% del alto de la ventana */
+
+        /* El contenedor ocupa todo el espacio visual disponible */
+        #game-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Ajuste para que el reproductor de Ruffle sea flexible */
+        ruffle-player {
+            width: 100% !important;
+            height: 100% !important;
         }
     </style>
 </head>
 <body>
-    <div id="game"></div>
+    <div id="game-container"></div>
 
     <script src="ruffle.js"></script>
     <script>
@@ -31,19 +43,19 @@
         window.addEventListener("load", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            const container = document.getElementById("game");
+            const container = document.getElementById("game-container");
             container.appendChild(player);
             
             player.load({
                 url: "min-hero-tower-of-sages.swf",
-                letterbox: "on", /* Mantiene la proporción original sin deformar */
+                /* Parámetros críticos para corregir el tamaño tras la carga */
+                scale: "showAll",      // Muestra todo el juego
+                forceScale: true,      // Ignora el tamaño interno del SWF
+                letterbox: "on",       // Mantiene la proporción original
+                wmode: "opaque",       // Mejora la integración visual
                 autoplay: "on",
                 unmuteOverlay: "hidden"
             });
-            
-            // Ajuste automático si cambias el tamaño de la ventana
-            player.style.width = "100%";
-            player.style.height = "100%";
         });
     </script>
 </body>
