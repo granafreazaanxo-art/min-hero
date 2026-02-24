@@ -2,35 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Min Hero: Tower of Sages - Pantalla Completa</title>
+    <title>Min Hero - Fullscreen Fix</title>
     <style>
-        /* Eliminamos margenes y obligamos al fondo a ser negro */
-        body, html {
+        /* Eliminamos cualquier margen del navegador */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
             width: 100%;
             height: 100%;
             background-color: #000;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
-        /* El contenedor ocupa todo el espacio visual disponible */
+        /* Contenedor principal */
         #game-container {
             width: 100vw;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        /* Ajuste para que el reproductor de Ruffle sea flexible */
+        /* ESTO ES LO MÁS IMPORTANTE: 
+           Forzamos al elemento que crea Ruffle a ser gigante */
         ruffle-player {
-            width: 100% !important;
-            height: 100% !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            display: block;
         }
     </style>
 </head>
@@ -48,11 +50,11 @@
             
             player.load({
                 url: "min-hero-tower-of-sages.swf",
-                /* Parámetros críticos para corregir el tamaño tras la carga */
-                scale: "showAll",      // Muestra todo el juego
-                forceScale: true,      // Ignora el tamaño interno del SWF
-                letterbox: "on",       // Mantiene la proporción original
-                wmode: "opaque",       // Mejora la integración visual
+                // Estas opciones obligan al motor a escalar el contenido
+                scale: "showAll",
+                forceScale: true,
+                letterbox: "on",
+                wmode: "opaque",
                 autoplay: "on",
                 unmuteOverlay: "hidden"
             });
