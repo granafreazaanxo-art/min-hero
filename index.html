@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Min Hero Local</title>
+    <style>
+        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #game { width: 800px; height: 600px; }
+    </style>
+</head>
+<body>
+    <div id="game"></div>
+
+    <script src="ruffle.js"></script> 
+    
+    <script>
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+        document.getElementById("game").appendChild(player);
+        player.load("min-hero-tower-of-sages.swf");
+    </script>
+</body>
+</html>
